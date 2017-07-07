@@ -1,0 +1,52 @@
+{
+  "description": "",
+  "variables": {
+    "box_name": ""
+  },
+  "builders": [{
+    "name": "{{ user `box_name`}}",
+    "vm_name": "{{ user `box_name`}}",
+    "vmdk_name": "{{ user `box_name`}}",
+    "type": "vmware-iso",
+    "communicator": "ssh",
+    "headless": true,
+    "guest_os_type": "RedHat_64",
+    "iso_url": "http://path/image.iso",
+    "iso_checksum": "",
+    "iso_checksum_type": "md5",
+
+    "format": "ova",
+    "ssh_username": "",
+    "ssh_password": "",
+    "ssh_wait_timeout": "60m",
+
+    "http_directory": "http",
+    "boot_wait": "5s",
+
+    "disk_type_id": "thin",
+
+    "boot_command": [
+
+    ],
+
+    "shutdown_command": "",
+
+    "vmx_data": {
+      "ethernet0.networkName": "VM Network"
+    }
+  }
+],
+   "provisioners": [{
+     "type": "shell",
+     "scripts": [
+       "scripts/scrips.sh"
+     ],
+
+     "execute_command": "echo 'nullgrid' | {{ .Vars }} sudo -E -S bash '{{ .Path }}'"
+
+     }
+   ],
+
+  "post-processors": []
+
+}
